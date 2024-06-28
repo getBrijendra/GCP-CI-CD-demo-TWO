@@ -1,20 +1,50 @@
+# steps:
+#   - name: "gcr.io/cloud-builders/docker"
+#     args: ["build", "-t", "gcr.io/apis-424409/myproject", "."]
+#   - name: "gcr.io/cloud-builders/docker"
+#     args: ["push", "gcr.io/apis-424409/myproject"]
+#   - name: "gcr.io/cloud-builders/gcloud"
+#     args:
+#       [
+#         "run",
+#         "deploy",
+#         "myproject",
+#         "--image",
+#         "gcr.io/apis-424409/myproject",
+#         "--platform",
+#         "managed",
+#         "--region",
+#         "us-central1",
+#       ]
+# images:
+#   - "gcr.io/apis-424409/myproject"
+
+# Define the build configuration
+build:
+  service_account: "django-image-uploader-acc-serv@apis-424409.iam.gserviceaccount.com"
+  logs_bucket: "gs://example-bucket-demo-one" # Replace with your actual bucket name
+
+# Build steps
 steps:
-  - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/apis-424409/myproject", "."]
-  - name: "gcr.io/cloud-builders/docker"
+  - name: "gcr.io/cloud-builders/docker" # Build the Docker image
+    args: ["build", "-t", "gcr.io/apis-424409/myproject", "."] # Use substitution variables
+
+  - name: "gcr.io/cloud-builders/docker" # Push the image to Container Registry
     args: ["push", "gcr.io/apis-424409/myproject"]
-  - name: "gcr.io/cloud-builders/gcloud"
-    args:
-      [
+
+  - name: "gcr.io/cloud-builders/gcloud" # Deploy the image to Cloud Run
+    args: [
         "run",
         "deploy",
-        "myproject",
+        "myproject", # Replace with your Cloud Run service name
         "--image",
         "gcr.io/apis-424409/myproject",
         "--platform",
         "managed",
         "--region",
-        "us-central1",
+        "us-central1", # Replace with your desired region
       ]
+
+# Images to be built and pushed (already defined)
 images:
   - "gcr.io/apis-424409/myproject"

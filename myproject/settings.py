@@ -90,6 +90,10 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #     }
 # }
 
+# Replace with your actual project ID
+project_id = 'apis-424409'
+
+
 def access_secret_version(project_id, secret_id, version_id):
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
@@ -113,13 +117,14 @@ def access_secret_version(project_id, secret_id, version_id):
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        # 'HOST': '127.0.0.1',  # or the appropriate host for your database
-        'HOST': '/cloudsql/apis-424409:us-central1:storyvord',
-        'NAME': access_secret_version(project_id, 'db_name'),  # Correct secret name
-        'USER': access_secret_version(project_id, 'db_user'),  # Correct secret name
-        'PASSWORD': access_secret_version(project_id, 'db_password'),  # Correct secret name
+        'HOST': '127.0.0.1',  # or the appropriate host for your database
+        # 'HOST': '/cloudsql/apis-424409:us-central1:storyvord',
+       
+        'NAME': access_secret_version(project_id, 'db_name', 'latest'),  # Replace 'latest' with appropriate version_id
+        'USER': access_secret_version(project_id, 'db_user', 'latest'),  # Replace 'latest' with appropriate version_id
+        'PASSWORD': access_secret_version(project_id, 'db_password', 'latest'), 
         # 'PORT': '1234',  # Default PostgreSQL port
-        'PORT': '5432',  
+        'PORT': '1234',  
     }
 }
 
@@ -128,7 +133,9 @@ DATABASES = {
 
 # Google Cloud Storage settings
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
 GS_BUCKET_NAME = 'example-bucket-demo-one'
+
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, r'D:\DjangoPython2024\ImageUpload-GCP-demo\myproject\apis-424409-881aff78517d.json')
 )
