@@ -20,9 +20,14 @@
 #   - "gcr.io/apis-424409/myproject"
 
 # Define the build configuration
+# build:
+#   service_account: "django-image-uploader-acc-serv@apis-424409.iam.gserviceaccount.com"
+#   logs_bucket: "gs://example-bucket-demo-one" # Replace with your actual bucket name
+
 build:
   service_account: "django-image-uploader-acc-serv@apis-424409.iam.gserviceaccount.com"
-  logs_bucket: "gs://example-bucket-demo-one" # Replace with your actual bucket name
+  options:
+    default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
 
 # Build steps
 steps:
