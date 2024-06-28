@@ -22,7 +22,6 @@
 # Define the build configuration
 build:
   service_account: "django-image-uploader-acc-serv@apis-424409.iam.gserviceaccount.com"
-  logs_bucket: "gs://example-bucket-demo-one" # Replace with your actual bucket name
 
 # Build steps
 steps:
