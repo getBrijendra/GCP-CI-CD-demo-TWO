@@ -25,7 +25,7 @@
 #   logs_bucket: "gs://example-bucket-demo-one" # Replace with your actual bucket name
 
 build:
-  service_account: "308286998013@cloudbuild.gserviceaccount.com"
+  service_account: "308286998013-compute@developer.gserviceaccount.com"
   options:
     default_logs_bucket_behavior: REGIONAL_USER_OWNED_BUCKET
 
